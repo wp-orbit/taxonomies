@@ -1,0 +1,15 @@
+{
+    "name": "wp-orbit/taxonomies",
+    "authors": [
+        {
+            "name": "Marty Eason",
+            "email": "martye@sideways8.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "WPOrbit\\Taxonomies\\": "code/"
+        }
+    }
+}
