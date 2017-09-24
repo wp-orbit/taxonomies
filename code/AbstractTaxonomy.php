@@ -183,25 +183,24 @@ abstract class AbstractTaxonomy {
 	 * Hook WordPress.
 	 */
 	public function register_taxonomy() {
-		add_action( 'init', function () {
-			// Validate taxonomy configuration.
-			$this->validate_taxonomy();
 
-			// Define arguments.
-			$args = [
-				'hierarchical'      => $this->hierarchical,
-				'labels'            => $this->get_labels(),
-				'show_ui'           => $this->show_ui,
-				'show_admin_column' => $this->show_admin_column,
-				'query_var'         => $this->query_var,
-				'rewrite'           => [ 'slug' => $this->slug ],
-			];
+		// Validate taxonomy configuration.
+		$this->validate_taxonomy();
 
-			$args = apply_filters( 'wp-orbit-taxonomy-args', $args, $this->get_key() );
+		// Define arguments.
+		$args = [
+			'hierarchical'      => $this->hierarchical,
+			'labels'            => $this->get_labels(),
+			'show_ui'           => $this->show_ui,
+			'show_admin_column' => $this->show_admin_column,
+			'query_var'         => $this->query_var,
+			'rewrite'           => [ 'slug' => $this->slug ],
+		];
 
-			// Register the taxonomy.
-			register_taxonomy( $this->key, $this->post_types, $args );
-		} );
+		$args = apply_filters( 'wp-orbit-taxonomy-args', $args, $this->get_key() );
+
+		// Register the taxonomy.
+		register_taxonomy( $this->key, $this->post_types, $args );
 	}
 
 	/**
@@ -243,5 +242,7 @@ abstract class AbstractTaxonomy {
 				$this->{$method} = $arg;
 			}
 		}
+
+		add_action( 'init', [$this, 'register_taxonomy'] );
 	}
 }
