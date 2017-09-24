@@ -238,7 +238,7 @@ abstract class AbstractTaxonomy {
 		]);
 
 		foreach( $args as $method => $arg ) {
-			if ( method_exists( static::class, $method ) ) {
+			if ( property_exists( static::class, $method ) ) {
 				$this->{$method} = $arg;
 			}
 		}
